@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1017">
+  <meta name="description" content="A private, offline-ready gamepad tester. See live button, stick, trigger, and drift readings in your browser.">
+  <title>Gamepad Lab — Controller diagnostics</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Gamepad Lab home"><span class="brand-mark">⌘</span><span>GAMEPAD<span class="brand-accent">LAB</span></span></a>
+      <div class="top-actions"><span class="privacy"><i></i>LOCAL ONLY</span><a href="https://github.com/GhosTnever-lkm/gamepad-lab" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a></div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy"><p class="eyebrow"><span></span> CONTROLLER DIAGNOSTICS · 01</p><h1>Know every<br><em>input.</em></h1><p class="hero-lead">A focused test bench for your gamepad. Check buttons, sticks, triggers, and center drift in real time — privately, right here in your browser.</p>
+          <div class="hero-actions"><button id="scan-button" class="button button-primary" type="button"><span>⌕</span> Find my controller</button><span class="gesture-note">Press any button after connecting</span></div>
+        </div>
+        <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="controller-ghost"><div class="controller-shell"><div class="stick stick-left"><i></i></div><div class="cross"><i></i><b></b></div><div class="stick stick-right"><i></i></div><div class="face-buttons"><i>A</i><i>B</i><i>X</i><i>Y</i></div><div class="center-buttons"><i></i><i></i></div><div class="controller-light"></div></div></div><span class="art-label label-a">AXIS / 01</span><span class="art-label label-b">SIGNAL: LIVE</span><span class="art-coord">X 0.00<br>Y 0.00</span></div>
+      </section>
+
+      <section class="workspace" aria-label="Controller test bench">
+        <div class="section-heading"><div><p class="eyebrow">TEST BENCH <span>—</span> INPUT STREAM</p><h2>Live telemetry</h2></div><div id="connection-badge" class="status-badge" data-state="waiting"><span class="status-dot"></span><span id="connection-label">WAITING FOR DEVICE</span></div></div>
+        <div id="empty-state" class="empty-state"><div class="empty-icon"><span>⌘</span><i></i></div><h3>No controller detected</h3><p>Connect a controller, focus this tab, then press any button or move a stick to wake the browser API.</p><button class="button button-secondary" id="empty-scan" type="button">Check again <span>↗</span></button><p class="support-note" id="api-support"></p></div>
+
+        <div id="device-panel" class="device-panel" hidden>
+          <div class="device-card"><div class="device-top"><div class="device-icon">⌘</div><div class="device-name"><p class="eyebrow">CONNECTED DEVICE <span id="device-index">#0</span></p><h3 id="device-name">Controller</h3></div><span id="mapping-tag" class="mapping-tag">STANDARD</span></div><div class="device-meta"><div><span>INPUT MAP</span><strong id="device-mapping">standard</strong></div><div><span>BUTTONS</span><strong id="button-count">—</strong></div><div><span>AXES</span><strong id="axis-count">—</strong></div><div><span>DATA MODE</span><strong id="device-power">LOCAL</strong></div></div><div id="device-warning" class="inline-warning" hidden></div></div>
+          <div class="diagnostic-grid">
+            <article class="panel sticks-panel"><div class="panel-head"><div><p class="eyebrow">ANALOG INPUT</p><h3>Stick position</h3></div><div class="mini-legend"><span><i></i> RAW</span><span><i></i> FILTERED</span></div></div><div class="stick-grid" id="stick-grid"></div><div class="deadzone-control"><label for="deadzone-slider">Radial deadzone <output id="deadzone-value">0.12</output></label><input id="deadzone-slider" type="range" min="0" max="0.4" step="0.01" value="0.12"><p>Visual filter only. Raw device readings remain unchanged.</p></div></article>
+            <article class="panel buttons-panel"><div class="panel-head"><div><p class="eyebrow">DIGITAL + ANALOG</p><h3>Button map</h3></div><span id="pressed-count" class="pressed-count">0 PRESSED</span></div><div id="button-grid" class="button-grid"></div><div class="trigger-row"><div class="trigger"><div><span>L2 / LT</span><b id="trigger-left-value">0.00</b></div><div class="meter"><i id="trigger-left-bar"></i></div></div><div class="trigger"><div><span>R2 / RT</span><b id="trigger-right-value">0.00</b></div><div class="meter"><i id="trigger-right-bar"></i></div></div></div></article>
+          </div>
+          <div class="lower-grid"><article class="panel calibration-panel"><div class="panel-head"><div><p class="eyebrow">CENTER CHECK</p><h3>Stick drift</h3></div><span id="calibration-status" class="calibration-state">NOT CHECKED</span></div><p class="panel-description">Hold the controller flat and leave both sticks untouched during the short measurement.</p><div id="drift-readings" class="drift-readings"><div><span>LEFT STICK</span><strong>— / —</strong></div><div><span>RIGHT STICK</span><strong>— / —</strong></div></div><div class="calibration-actions"><button id="calibrate-button" class="button button-secondary" type="button">Start 3-second check</button><button id="cancel-calibration" class="text-button" type="button" hidden>Cancel</button></div><div class="calibration-progress"><i id="calibration-progress"></i></div><p id="calibration-note" class="calibration-note">No measurement has been taken.</p></article><article class="panel activity-panel"><div class="panel-head"><div><p class="eyebrow">RECENT SIGNAL</p><h3>Input activity</h3></div><button id="clear-activity" class="text-button" type="button">CLEAR</button></div><ol id="activity-list" class="activity-list"><li class="activity-empty">Button presses and stick movement will appear here.</li></ol></article></div>
+          <div class="report-bar"><div><span class="report-icon">↧</span><div><strong>Take your diagnostics with you</strong><p>Export a small JSON report. No account, uploads, or background tracking.</p></div></div><button id="export-button" class="button button-primary" type="button">Export report <span>↓</span></button></div>
+        </div>
+      </section>
+
+      <section class="how-section"><div><p class="eyebrow">THREE STEPS</p><h2>From plug-in<br>to <em>readout.</em></h2></div><ol class="steps"><li><span>01</span><div><h3>Connect</h3><p>Plug in or pair your controller, focus this page, then press any button once.</p></div></li><li><span>02</span><div><h3>Move & test</h3><p>Press every button, move both sticks around, and squeeze the triggers.</p></div></li><li><span>03</span><div><h3>Check & export</h3><p>Measure center drift with the controller untouched, then save a JSON snapshot.</p></div></li></ol></section>
+    </main>
+    <footer><span>GAMEPAD LAB <i>·</i> v1.0.0</span><span>NO DATA LEAVES THIS DEVICE</span><a href="https://github.com/GhosTnever-lkm/gamepad-lab">SOURCE & LICENSE ↗</a></footer>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
