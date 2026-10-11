@@ -67,6 +67,15 @@ serve.cjs              Dependency-free local development server
 manifest.webmanifest   Installable web app metadata
 ```
 
+## Development checks
+
+Requires Node.js 18 or newer:
+
+```sh
+npm test
+npm run check
+```
+
 ## Support / Pro Version
 
 Gamepad Lab is free and open source. There is no paid Pro edition for this project. If it is useful, you can [support development on Buy Me a Coffee](https://buymeacoffee.com/azizazimov8).

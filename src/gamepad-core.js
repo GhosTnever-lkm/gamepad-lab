@@ -336,7 +336,7 @@ export function buildDiagnosticReport(snapshot, calibration = null, metadata = {
   return {
     schemaVersion: SCHEMA_VERSION,
     generatedAt: toIso(metadata?.generatedAt),
-    appVersion: safeText(metadata?.appVersion, 32) || '1.0.0',
+    appVersion: safeText(metadata?.appVersion, 32) || '1.0.1',
     device,
     calibration: calibrationReport,
     limitations: [...LIMITATIONS],

@@ -232,7 +232,7 @@ function stop() {
 
 function downloadReport() {
   if (!state.snapshot) return showToast('Connect a controller first.');
-  const report = buildDiagnosticReport(state.snapshot, state.calibration, { appVersion: '1.0.0' });
+  const report = buildDiagnosticReport(state.snapshot, state.calibration, { appVersion: '1.0.1' });
   const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement('a');

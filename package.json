@@ -1,9 +1,11 @@
 {
   "name": "gamepad-lab",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node serve.cjs"
+    "start": "node serve.cjs",
+    "test": "node --test",
+    "check": "node --check src/gamepad-core.js && node --check src/main.js && node --test"
   }
 }
