@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2 - 2026-10-13
+
+- Remove the external Google Fonts import and use system font stacks so the app makes no third-party font requests.
+
 ## 1.0.1 - 2026-10-11
 
 - Add deterministic tests for deadzone filtering, normalization, calibration, event summaries, and report bounds.
