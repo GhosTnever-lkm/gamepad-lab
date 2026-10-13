@@ -13,7 +13,7 @@
 - Displays the hardware reading (`raw`) separately from the optional radial deadzone view (`filtered`). The filter never changes the controller or its input to games.
 - Measures stick center variation only after you start the check. Keep the controller still during the measurement.
 - Downloads a compact JSON report directly to your device.
-- Runs without an account, analytics, remote scripts, uploads, or a backend.
+- Runs without an account, analytics, remote scripts, remote fonts, uploads, or a backend.
 
 ## Use it
 
