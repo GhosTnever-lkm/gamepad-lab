@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.3 - 2026-10-24
+
+- Report exports now identify the current Gamepad Lab release (`1.0.3`) instead of the stale `1.0.1` value.
+- Version the browser module and stylesheet URLs so cached clients load the current interface and report logic.
+
 ## 1.0.2 - 2026-10-13
 
 - Remove the external Google Fonts import and use system font stacks so the app makes no third-party font requests.

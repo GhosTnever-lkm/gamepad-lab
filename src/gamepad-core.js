@@ -3,6 +3,7 @@
  * Raw values are kept separate from local filters; nothing is uploaded.
  */
 export const SCHEMA_VERSION = '1.0.0';
+export const APP_VERSION = '1.0.3';
 
 const DEFAULT_DEADZONE = 0.12;
 const MAX_DEADZONE = 0.4;
@@ -336,7 +337,7 @@ export function buildDiagnosticReport(snapshot, calibration = null, metadata = {
   return {
     schemaVersion: SCHEMA_VERSION,
     generatedAt: toIso(metadata?.generatedAt),
-    appVersion: safeText(metadata?.appVersion, 32) || '1.0.1',
+    appVersion: safeText(metadata?.appVersion, 32) || APP_VERSION,
     device,
     calibration: calibrationReport,
     limitations: [...LIMITATIONS],

@@ -1,11 +1,12 @@
 import {
+  APP_VERSION,
   buildDiagnosticReport,
   createCalibration,
   finishCalibration,
   normalizeGamepadSnapshot,
   summarizeGamepads,
   updateCalibration,
-} from './gamepad-core.js';
+} from './gamepad-core.js?v=1.0.3';
 
 const $ = selector => document.querySelector(selector);
 const els = {
@@ -232,7 +233,7 @@ function stop() {
 
 function downloadReport() {
   if (!state.snapshot) return showToast('Connect a controller first.');
-  const report = buildDiagnosticReport(state.snapshot, state.calibration, { appVersion: '1.0.1' });
+  const report = buildDiagnosticReport(state.snapshot, state.calibration, { appVersion: APP_VERSION });
   const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement('a');
