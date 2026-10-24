@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import {
+  APP_VERSION,
   applyDeadzone,
   buildDiagnosticReport,
   createCalibration,
@@ -9,6 +11,15 @@ import {
   summarizeGamepads,
   updateCalibration,
 } from '../src/gamepad-core.js';
+
+test('diagnostic report defaults to the current package and interface version', () => {
+  const packageJson = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
+  const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+  const report = buildDiagnosticReport({ id: 'Synthetic', index: 0, axes: [], buttons: [] });
+  assert.equal(APP_VERSION, packageJson.version);
+  assert.equal(report.appVersion, packageJson.version);
+  assert.match(html, new RegExp(`v${packageJson.version.replaceAll('.', '\\.')}`));
+});
 
 test('deadzone is symmetric, bounded, and leaves out-of-range input clamped', () => {
   assert.equal(applyDeadzone(0.1, 0.1), 0);
