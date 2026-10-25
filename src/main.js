@@ -6,7 +6,7 @@ import {
   normalizeGamepadSnapshot,
   summarizeGamepads,
   updateCalibration,
-} from './gamepad-core.js?v=1.0.3';
+} from './gamepad-core.js?v=1.0.4';
 
 const $ = selector => document.querySelector(selector);
 const els = {
