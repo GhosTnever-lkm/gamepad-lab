@@ -3,7 +3,7 @@
  * Raw values are kept separate from local filters; nothing is uploaded.
  */
 export const SCHEMA_VERSION = '1.0.0';
-export const APP_VERSION = '1.0.3';
+export const APP_VERSION = '1.0.4';
 
 const DEFAULT_DEADZONE = 0.12;
 const MAX_DEADZONE = 0.4;
@@ -168,7 +168,9 @@ export function updateCalibration(calibration, snapshot, dt) {
     next.warnings.push('snapshot-invalid');
     return next;
   }
-  if (snapshot.connected !== true || snapshot.index !== current.index) {
+  const deviceChanged = snapshot.index !== current.index
+    || (current.id && snapshot.id && snapshot.id !== current.id);
+  if (snapshot.connected !== true || deviceChanged) {
     next.state = 'cancelled';
     next.cancellationReason = snapshot.connected !== true ? 'disconnected' : 'device-changed';
     next.warnings.push('calibration-cancelled');

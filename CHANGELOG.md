@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.4 - 2026-10-25
+
+- Cancel a stick-center measurement when a different controller replaces the device in the same browser slot.
+- Add a regression test for same-slot controller replacement.
+
 ## 1.0.3 - 2026-10-24
 
 - Report exports now identify the current Gamepad Lab release (`1.0.3`) instead of the stale `1.0.1` value.

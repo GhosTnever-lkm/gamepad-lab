@@ -60,6 +60,24 @@ test('steady calibration finishes with bounded sample facts', () => {
   assert.match(result.result.recommendation, /No unusual variation/);
 });
 
+test('calibration cancels when a different controller replaces the device in the same slot', () => {
+  const first = normalizeGamepadSnapshot({
+    id: 'Controller A', index: 0, mapping: 'standard', connected: true,
+    axes: [0, 0], buttons: [],
+  });
+  const replacement = normalizeGamepadSnapshot({
+    id: 'Controller B', index: 0, mapping: 'standard', connected: true,
+    axes: [0.4, -0.2], buttons: [],
+  });
+
+  const calibration = createCalibration(first);
+  const updated = updateCalibration(calibration, replacement, 16);
+
+  assert.equal(updated.state, 'cancelled');
+  assert.equal(updated.cancellationReason, 'device-changed');
+  assert.equal(updated.sampleCount, 0);
+});
+
 test('gamepad summaries report connect, button, axis, and disconnect events', () => {
   const pad = (button, axis) => normalizeGamepadSnapshot({
     id: 'Synthetic', index: 1, mapping: 'standard', connected: true,
